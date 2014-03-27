@@ -1,0 +1,18 @@
+NS:
+Name	Class	Type	NameServer
+
+A:
+Name	Class	Type	Addr
+
+MX:
+Name	Class	Type	Preference	MailExchange
+
+CNAME:
+Name	Class	Type	PrimaryName
+
+SOA:
+Name	Class	Type	PrimaryName	AuthorityMailbox	Serial	Refresh	Retry	Expiration	Minimum
+
+TXT:
+Name	Class	Type	Text
+
