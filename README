@@ -1,0 +1,35 @@
+Nenu Anda Roxana
+325CA
+
+In aceasta tema am folosit cereri DNS pentru interogarea unor servere DNS. Am 
+parcurs fisierul dns_servers.conf linie cu linie pana cand m-am putut conecta la
+un server in timp utile ( maxim 2sec folosind select ). Pentru a trimite mesajul
+am pus in buf o structura de tip header, apoi un sir de caractere reprezentand 
+conversia dintr-un sir google.com in 5google3com0, apoi o structura de tip 
+question (am lasat doar campurile qclasssi qtype in definirea structurii). Am 
+setat timeout-ul 2 secunde si am folosit select pentru a-l testa. Am primit 
+raspunsul in buf, iar answer pointa mereu la pozitia care ma interesa. Astfel am
+sarit peste partea de header, sirul "expandat" (5google3com0) si question. Aici
+am luat fiecare sectiune in parte ANSWER, AUTHORITY si ADDITIONAL si am 
+verificat daca numarul de inregistrari corespunzatoare  era mai mare ca zero. In
+caz afirmativ ma duceam cu un for si parcurgeam inregistrarile pe care le parsam
+si le afisam in formatul corespunzator. Am avut trei cazut daca type este A, MS
+sau altceva. Pentru fiecare am parsat dupa formatul descris in documentatia rfc.
+Am folosit aici functia convert care din 3www5google3com0 returna www.google.com
+si mai multe functii pentru afisarea type-ului, clasei sub forma de string.
+
+Pentru functia de decompresit ( 3www5google3com0 -> www.google.com )
+M-am uitat daca primii doi biti din lungimea octetului sunt 1, atunci ceea ce 
+urmeaza nu este o lungime, ci un pointer, pointer-ul fiind urmatorii 6 biti si 
+urmatorul octet deci in total 14 biti. 
+
+Pentru functia de convert m-am folosit de explicatiile de aici. M-a ajutat sa 
+inteleg mai bine, are un exemplu destul de bine explicat.
+https://stwalkerster.co.uk/blog/2013/01/30/dns-decompression/
+http://docstore.mik.ua/orelly/networking_2ndEd/dns/ch15_02.htm - la sectiunea
+15.2.3. Domain Name Compression- aceasta explica operitiile pe biti ( metoda pe 
+care am implementat-o si eu ).
+
+In mare mi s-a parut foarte interesanta tema. Si am invatat sa folosessc 
+wireshark-ul, sa interoghez un server DNS si sa interpretez raspunsul acestuia.
+So, nice job :D 
